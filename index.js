@@ -18,8 +18,8 @@ app.get('/', (req, res) => {
 // whenever a connection is made || something happens
 io.on('connection', (socket) => {
     console.log('User connected');
-    socket.emit('message', {manny: 'how are you?'});
-    socket.on('another event', (data) => {
-        console.log(data);
+    socket.on('message', (msg) => {
+        console.log(`message: ${msg}`);
+        io.emit('message', msg);
     });
 });
