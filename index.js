@@ -49,3 +49,6 @@ tech.on('connection', (socket) => {
         tech.emit('message', 'user disconnected');
     })
 });
+
+
+// to run debug for windows - set DEBUG=*& npm run start
