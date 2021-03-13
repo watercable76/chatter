@@ -7,50 +7,22 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
-  <style>
-    form {
-      padding: 20px;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      padding-right: 50px;
-    }
-
-    #messages {
-      list-style-type: none;
-      margin: 0;
-      padding: 0;
-      width: 100%;
-    }
-
-    #messages li {
-      padding: 5px 10px;
-    }
-
-    #messages li:nth-child(odd) {
-      background: #eee;
-    }
-  </style>
 </head>
 
 <body>
-  <h2>Some text</h2>
+  <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+      <h1 class="display-3">Tech Space Chatter</h1>
+      <p class="lead">Select which room you would like to join!</p>
+    </div>
+  </div>
   <div class="container-fluid">
     <div class="row">
-      <ul id="messages"></ul>
-    </div>
-    <div class="row">
-      <div class="col-lg-6">
-        <form action="">
-          <div class="input-group mb-3">
-            <input id="m" autocomplete="off" type="text" class="form-control" placeholder="Message..."
-              aria-label="Message..." aria-describedby="button-addon2">
-            <span class="input-group-btn">
-              <button class="btn btn-secondary" type="submit" id="button-addon2">Send</button>
-            </span>
-          </div>
-        </form>
-      </div>
+      <ul class="list-group">
+        <a href="/javascript" class="list-group-item list-group-item-action">JavaScript</a>
+        <a href="/swift" class="list-group-item">Swift</a>
+        <a href="/css" class="list-group-item">CSS</a>
+      </ul>
     </div>
   </div>
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
@@ -63,22 +35,8 @@
     integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
     crossorigin="anonymous"></script>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-  <script src="/socket.io/socket.io.js"></script>
 
-  <!-- <script src="../node_modules/socket.io/dist/socket.js"></script> -->
-  <!-- jquery would not work since I did not have a reference to it -->
-  <script>
-    const socket = io();
-    $('form').submit(() => {
-      socket.emit('message', $('#m').val());
-      $('#m').val('');
-      return false;
-    });
 
-    socket.on('message', (msg) => {
-      $('#messages').append($('<li>').text(msg));
-    });
-  </script>
 </body>
 
 </html>
