@@ -39,10 +39,22 @@ tech.on('connection', (socket) => {
         tech.in(data.room).emit('message', `New User joined ${data.room} room!`);
     });
 
-    socket.on('message', (data) => {
-        console.log(`message: ${data.msg}`);
-        tech.in(data.room).emit('message', data.msg);
+    // allows swift room to work on data at once
+    // socket.on('message2', (evt) => {
+    //     console.log(evt);
+    //     tech.in(data.room).emit('new_data', evt);
+    // });
+
+    socket.on('message', (evt) => {
+        // log(evt)
+        socket.broadcast.emit('message', evt)
     });
+
+    // send message between users
+    // socket.on('message', (data) => {
+    //     console.log(`message: ${data.msg}`);
+    //     tech.in(data.room).emit('message', data.msg);
+    // });
 
     socket.on('disconnect', () => {
         console.log('user disconnected');

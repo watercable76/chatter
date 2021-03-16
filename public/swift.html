@@ -35,7 +35,11 @@
 
 <body>
   <h2>Swift Room</h2>
-  <div class="container-fluid">
+  <div>
+    <textarea rows="30" cols="50" id="editor" style="background-color:dimgrey;color:white"
+      placeholder="Type Your Text..."></textarea>
+  </div>
+  <!-- <div class="container-fluid">
     <div class="row">
       <ul id="messages"></ul>
     </div>
@@ -52,7 +56,7 @@
         </form>
       </div>
     </div>
-  </div>
+  </div> -->
   <!-- <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0"
     crossorigin="anonymous"></script> -->
@@ -70,22 +74,41 @@
   <script>
     const room = 'swift';
     const socket = io('/tech');
-    $('form').submit(() => {
-      // get value of input, send it, then clear it after sending it
-      let msg = $('#m').val();
-      socket.emit('message', { msg, room });
-      $('#m').val('');
-      return false;
+
+    function getEl(id) {
+      return document.getElementById(id);
+    }
+
+    const editor = getEl('editor');
+
+    editor.addEventListener("keyup", (evt) => {
+      const text = editor.value;
+      socket.send(text);
     });
 
-    socket.on('connect', () => {
-      // emitting to everybody
-      socket.emit('join', { room: room });
+    socket.on('message', (data) => {
+      console.log(data);
+      editor.value = data;
     });
 
-    socket.on('message', (msg) => {
-      $('#messages').append($('<li>').text(msg));
-    });
+
+    // code for sending messages between users
+    // $('form').submit(() => {
+    //   // get value of input, send it, then clear it after sending it
+    //   let msg = $('#m').val();
+    //   socket.emit('message', { msg, room });
+    //   $('#m').val('');
+    //   return false;
+    // });
+
+    // socket.on('connect', () => {
+    //   // emitting to everybody
+    //   socket.emit('join', { room: room });
+    // });
+
+    // socket.on('message', (msg) => {
+    //   $('#messages').append($('<li>').text(msg));
+    // });
   </script>
 </body>
 
