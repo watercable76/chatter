@@ -40,25 +40,31 @@ tech.on('connection', (socket) => {
     });
 
     // allows swift room to work on data at once
-    // socket.on('message2', (evt) => {
-    //     console.log(evt);
-    //     tech.in(data.room).emit('new_data', evt);
-    // });
 
-    socket.on('message', (evt) => {
-        // log(evt)
-        socket.broadcast.emit('message', evt)
-    });
+    // socket.on('message_data', (evt) => {
+    //     // log(evt)
+    //     // how do I make it so just the swift room gets the data??????
+
+    //     // tech.in(data.room).emit('message', evt);
+    //     // not logging the data at all
+    //     console.log(evt);
+
+    //     socket.broadcast.emit('message_data', evt);
+    // });
 
     // send message between users
-    // socket.on('message', (data) => {
-    //     console.log(`message: ${data.msg}`);
-    //     tech.in(data.room).emit('message', data.msg);
-    // });
+    socket.on('message', (data) => {
+        console.log(`message: ${data.msg}`);
+        tech.in(data.room).emit('message', data.msg);
+    });
 
-    socket.on('disconnect', () => {
+    socket.on('disconnect', (data) => {
         console.log('user disconnected');
-        tech.emit('message', 'user disconnected');
+        // only show if user disconnected for the chat rooms
+        if (data.room == 'javascript' || data.room == 'css') {
+           tech.emit('message', 'user disconnected'); 
+        }
+        
     })
 });
 
