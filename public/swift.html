@@ -91,6 +91,7 @@
       const msg = editor.value;
       // console.log(text);
       // socket.send({msg: text});
+      // need to send msg and room (same format as other files)
       socket.emit('message', { msg, room });
     });
 

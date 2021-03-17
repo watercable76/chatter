@@ -59,19 +59,10 @@ tech.on('connection', (socket) => {
     socket.on('message', (data) => {
         console.log(`message: ${data.msg}`);
         console.log(data);
+        // data is the dictionary of data
+        // data.msg is the key value (need to access based off of the value sent from client)
         tech.in(data.room).emit('message', data.msg);
     });
-
-    // socket.on('keyup', () => {
-    //     socket.emit('message_received', data);
-    // });
-
-    // tech.on('connection', (socket) => {
-    //     socket.on('message', (evt) => {
-    //         tech.in(data.room).emit('message', evt);
-    //         console.log(evt);
-    //     });
-    // });
 
     socket.on('disconnect', (data) => {
         console.log('user disconnected');
