@@ -88,11 +88,13 @@
     });
 
     editor.addEventListener("keyup", (evt) => {
-      const text = editor.value;
-      socket.send(text);
+      const msg = editor.value;
+      // console.log(text);
+      // socket.send({msg: text});
+      socket.emit('message', { msg, room });
     });
 
-    socket.on('message_data', (data) => {
+    socket.on('message', (data) => {
       console.log(data);
       editor.value = data;
     });
