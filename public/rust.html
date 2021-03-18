@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+  <title>Rust</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+  <style>
+    form {
+      padding: 20px;
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      padding-right: 50px;
+    }
+
+    #messages {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+
+    #messages li {
+      padding: 5px 10px;
+    }
+
+    #messages li:nth-child(odd) {
+      background: #eee;
+    }
+  </style>
+</head>
+
+<body>
+  <h2>Rust Room</h2>
+  <div>
+    <textarea rows="30" cols="100" id="editor" style="background-color:dimgrey;color:white"
+      placeholder="Type Your Text..."></textarea>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.6.0/dist/umd/popper.min.js"
+    integrity="sha384-KsvD1yqQ1/1+IA7gi3P0tyJcT3vR+NdBTt13hSJ2lnve8agRGXTTyNaBYmCR/Nwi"
+    crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.min.js"
+    integrity="sha384-nsg8ua9HAw1y0W1btsyWgBklPnCUAFLuTMS2G72MMONqmOymq585AcH49TLBQObG"
+    crossorigin="anonymous"></script>
+  <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+
+  <!-- <script src="../node_modules/socket.io/dist/socket.js"></script> -->
+  <!-- jquery would not work since I did not have a reference to it -->
+  <script>
+    const room = 'rust';
+    const socket = io('/tech');
+
+    function getEl(id) {
+      return document.getElementById(id);
+    }
+
+    const editor = getEl('editor');
+
+    socket.on('connect', () => {
+      // emitting to everybody
+      socket.emit('join', { room: room });
+    });
+
+    editor.addEventListener("keyup", (evt) => {
+      const msg = editor.value;
+      // console.log(text);
+      // socket.send({msg: text});
+      // need to send msg and room (same format as other files)
+      socket.emit('message', { msg, room });
+    });
+
+    socket.on('message', (data) => {
+      console.log(data);
+      editor.value = data;
+    });
+
+
+    // code for sending messages between users
+    // $('form').submit(() => {
+    //   // get value of input, send it, then clear it after sending it
+    //   let msg = $('#m').val();
+    //   socket.emit('message', { msg, room });
+    //   $('#m').val('');
+    //   return false;
+    // });
+
+    // socket.on('connect', () => {
+    //   // emitting to everybody
+    //   socket.emit('join', { room: room });
+    // });
+
+    // socket.on('message', (msg) => {
+    //   $('#messages').append($('<li>').text(msg));
+    // });
+  </script>
+</body>
+
+</html>

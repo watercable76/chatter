@@ -27,6 +27,10 @@ app.get('/swift', (req, res) => {
     res.sendFile(__dirname + '/public/swift.html');
 });
 
+app.get('/rust', (req, res) => {
+    res.sendFile(__dirname + '/public/rust.html');
+});
+
 // creating tech namespace
 const tech = io.of('/tech');
 
