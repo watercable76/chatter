@@ -15,7 +15,7 @@ be super close to see the screen of others.
 
 ## Youtube Link
 
-[Software Demo Video](https://youtu.be/gl61oXclXKA)
+[Software Demo Video](https://youtu.be/QLFFdT_oSyI)
 
 <p>&nbsp;</p>
 
